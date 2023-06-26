@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.Images"
+    android:background="@color/white">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar12"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:toolbarId="@+id/toolbar"
+            android:background="@color/white"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
+
+            <RelativeLayout
+                android:id="@+id/most"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/toolbar"
+                android:orientation="vertical"
+                android:layout_marginTop="60dp">
+
+                <TextView
+                    android:id="@+id/videoFragHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Videos"
+                    android:textColor="@color/black2"
+                    android:textSize="30sp" />
+
+            </RelativeLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:elevation="5dp"
+        android:paddingTop="2dp"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/vBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/vOpenWhatsapp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Open WhatsApp"
+                    android:textAllCaps="false"
+                    android:visibility="gone"
+                    app:cornerRadius="20dp"
+                    android:textSize="12sp"
+                    app:backgroundTint="@color/green3"/>
+
+                <Spinner
+                    android:id="@+id/whatsappTypeSpinner2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/vNoImageStatus"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="10dp"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:alpha="0.2"
+                    android:src="@drawable/ic_baseline_video_library_24"
+                    android:layout_marginTop="30dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:alpha="0.5"
+                    android:text="No Video Status Found"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="10dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/vOpenWhatsapp2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Open WhatsApp"
+                    android:textAllCaps="false"
+                    app:cornerRadius="20dp"
+                    android:textSize="12sp"
+                    android:layout_gravity="center_horizontal"
+                    app:backgroundTint="@color/green3"/>
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/videosRecycleView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/vBar"/>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp"
+        android:layout_gravity="bottom|end"
+        android:elevation="10dp">
+
+        <ImageButton
+            android:id="@+id/checkAllVideoBtn"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            app:cornerRadius="25dp"
+            android:padding="10dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/round_background"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_baseline_checklist_24"
+            android:visibility="gone"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/multiSaveVideoBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            app:cornerRadius="25dp"
+            android:backgroundTint="@color/green3"
+            app:icon="@drawable/ic_baseline_download_24"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

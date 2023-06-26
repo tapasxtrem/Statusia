@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activitys.MainActivity"
+    android:background="@color/white">
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_statuses"
+        android:background="@color/white"
+        android:layout_above="@+id/bottomNavigationBar"/>
+
+    <RelativeLayout
+        android:id="@+id/bottomNavigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true">
+
+<!--        <HorizontalScrollView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="0dp"-->
+<!--            android:scrollbars="none"-->
+<!--            android:layout_centerInParent="true">-->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/ImagesBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardCornerRadius="30dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/ImagesBtnTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Images"
+                            android:textStyle="bold"
+                            android:textSize="15sp"
+                            android:textColor="@color/black"
+                            android:paddingHorizontal="15dp"
+                            android:paddingTop="7dp"
+                            android:paddingBottom="2dp"/>
+
+                        <View
+                            android:id="@+id/ImagesBtnView"
+                            android:layout_width="55dp"
+                            android:layout_height="2dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="7dp"
+                            android:background="@android:color/black" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/VideosBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardCornerRadius="30dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/VideosBtnTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Videos"
+                            android:textStyle="bold"
+                            android:textSize="15sp"
+                            android:textColor="@color/nBlack"
+                            android:paddingHorizontal="15dp"
+                            android:paddingTop="7dp"
+                            android:paddingBottom="2dp"/>
+
+                        <View
+                            android:id="@+id/VideosBtnView"
+                            android:layout_width="55dp"
+                            android:layout_height="2dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="7dp"
+                            android:background="@android:color/white" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/SavedBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardCornerRadius="30dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/SavedBtnTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Saved"
+                            android:textStyle="bold"
+                            android:textSize="15sp"
+                            android:textColor="@color/nBlack"
+                            android:paddingHorizontal="15dp"
+                            android:paddingTop="7dp"
+                            android:paddingBottom="2dp"/>
+
+                        <View
+                            android:id="@+id/SavedBtnView"
+                            android:layout_width="55dp"
+                            android:layout_height="2dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="7dp"
+                            android:background="@android:color/white" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+<!--        </HorizontalScrollView>-->
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
