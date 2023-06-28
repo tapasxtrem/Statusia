@@ -63,12 +63,20 @@
         </LinearLayout>
     </FrameLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
+    <com.jsibbold.zoomage.ZoomageView
+        android:id="@+id/vImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="20dp"
-        android:orientation="horizontal"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+        android:layout_gravity="center"
+        android:fitsSystemWindows="false"
+        app:zoomage_animateOnReset="true"
+        app:zoomage_autoCenter="true"
+        app:zoomage_autoResetMode="UNDER"
+        app:zoomage_maxScale="8"
+        app:zoomage_minScale="0.6"
+        app:zoomage_restrictBounds="false"
+        app:zoomage_translatable="true"
+        app:zoomage_zoomable="true"
+        android:transitionName="image_or_video"/>
 
 </RelativeLayout>

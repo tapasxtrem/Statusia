@@ -4,8 +4,6 @@ import static android.content.ContentValues.TAG;
 import static com.example.statusia.Activitys.MainActivity.imageDir;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,14 +13,11 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.example.statusia.Adapters.ViewPagerAdapter;
-import com.example.statusia.Adapters.ViewPagerAdapter2;
+import com.bumptech.glide.Glide;
 import com.example.statusia.R;
 import com.example.statusia.Tools.PathMap;
 import com.google.android.material.snackbar.Snackbar;
@@ -45,10 +40,10 @@ public class OpenImageActivity extends AppCompatActivity {
     LinearLayout buttonsLayout;
 
     PathMap pathMap;
-    ViewPager2 viewPager;
     ArrayList<String> imageList;
-    int viewPagerPos;
     boolean isFullScreen = false;
+    ImageView vImageView;
+    String IMAGE_URI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,124 +51,102 @@ public class OpenImageActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_image);
-        viewPager = findViewById(R.id.viewPager);
         backBtn = findViewById(R.id.backBtn);
         whatsappBtn = findViewById(R.id.whatsappBtn);
         downloadBtn = findViewById(R.id.downloadBtn);
         shareBtn = findViewById(R.id.shareBtn);
         OpenImageLayout = findViewById(R.id.OpenImageLayout);
         buttonsLayout = findViewById(R.id.buttonsLayout);
+        vImageView = findViewById(R.id.vImageView);
 
         pathMap = new PathMap(getBaseContext());
 
         Intent intent = getIntent();
-        imageList = intent.getStringArrayListExtra("LIST");
         String frag = intent.getStringExtra("Fragment");
-        int pos = intent.getIntExtra("POS", 0);
+        IMAGE_URI = intent.getStringExtra("IMAGE_URI");
         if (frag.equals("Saved")) {
             downloadBtn.setVisibility(View.GONE);
         }
 
-//        ViewPagerAdapter2 adapter = new ViewPagerAdapter2(OpenImageActivity.this, imageList);
-        ViewPagerAdapter2 adapter = new ViewPagerAdapter2(OpenImageActivity.this, imageList);
-//        viewPager.setAdapter(adapter);
-        viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(pos);
-//        viewPager.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                viewPager.setCurrentItem(pos);
-//
-//            }
-//        },5000);
 
-        viewPagerPos = viewPager.getCurrentItem();
-        Log.d(TAG, "onCreate: adapter pos: " + viewPagerPos);
-        downloadButtonState(viewPagerPos);
-        initShareDownloadButtons(pos);
+        Glide.with(this)
+                        .load(IMAGE_URI)
+                        .thumbnail(Glide.with(this).load(R.drawable.loading))
+                        .into(vImageView);
 
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                viewPagerPos = position;
-                downloadButtonState(position);
-                initShareDownloadButtons(position);
-                Log.e(TAG, "onPageSelected2: " + position);
-            }
-        });
+        downloadButtonState(IMAGE_URI);
 
         setUI();
         setButton();
     }
 
-    private void initShareDownloadButtons(int pos) {
-        if (imageList.get(pos).endsWith("jpg") || imageList.get(pos).endsWith("jpeg") || imageList.get(pos).endsWith("png") || imageList.get(pos).endsWith("gif") || imageList.get(pos).endsWith("bmp")) {
-            TranslateAnimation animation = new TranslateAnimation(
-                    Animation.RELATIVE_TO_SELF, 10f,
-                    Animation.RELATIVE_TO_SELF, 0f,
-                    Animation.RELATIVE_TO_SELF, 0f,
-                    Animation.RELATIVE_TO_SELF, 0f
-            );
-
-            animation.setDuration(500); // Set the duration of the animation in milliseconds
-
-            // Set an AnimationListener to handle animation events
-            animation.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    // Animation start event
-                    // Set the element's visibility to visible before the animation starts
-                    OpenImageLayout.setVisibility(View.VISIBLE);
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    // Animation end event
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                    // Animation repeat event
-                }
-            });
-
-            OpenImageLayout.startAnimation(animation);
-
-        } else {
-            TranslateAnimation animation = new TranslateAnimation(
-                    Animation.RELATIVE_TO_SELF, 0f,
-                    Animation.RELATIVE_TO_SELF, 10f,
-                    Animation.RELATIVE_TO_SELF, 0f,
-                    Animation.RELATIVE_TO_SELF, 0f
-            );
-
-            animation.setDuration(500); // Set the duration of the animation in milliseconds
-
-            // Set an AnimationListener to handle animation events
-            animation.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    // Animation start event
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    // Animation end event
-                    // Hide the element after animation completes
-                    OpenImageLayout.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                    // Animation repeat event
-                }
-            });
-
-            OpenImageLayout.startAnimation(animation);
-
-        }
-    }
+//    private void initShareDownloadButtons(String IMAGE_URI) {
+//        if (IMAGE_URI.endsWith("jpg") || IMAGE_URI.endsWith("jpeg") || IMAGE_URI.endsWith("png") || IMAGE_URI.endsWith("gif") || IMAGE_URI.endsWith("bmp")) {
+//            TranslateAnimation animation = new TranslateAnimation(
+//                    Animation.RELATIVE_TO_SELF, 10f,
+//                    Animation.RELATIVE_TO_SELF, 0f,
+//                    Animation.RELATIVE_TO_SELF, 0f,
+//                    Animation.RELATIVE_TO_SELF, 0f
+//            );
+//
+//            animation.setDuration(500); // Set the duration of the animation in milliseconds
+//
+//            // Set an AnimationListener to handle animation events
+//            animation.setAnimationListener(new Animation.AnimationListener() {
+//                @Override
+//                public void onAnimationStart(Animation animation) {
+//                    // Animation start event
+//                    // Set the element's visibility to visible before the animation starts
+//                    OpenImageLayout.setVisibility(View.VISIBLE);
+//                }
+//
+//                @Override
+//                public void onAnimationEnd(Animation animation) {
+//                    // Animation end event
+//                }
+//
+//                @Override
+//                public void onAnimationRepeat(Animation animation) {
+//                    // Animation repeat event
+//                }
+//            });
+//
+//            OpenImageLayout.startAnimation(animation);
+//
+//        } else {
+//            TranslateAnimation animation = new TranslateAnimation(
+//                    Animation.RELATIVE_TO_SELF, 0f,
+//                    Animation.RELATIVE_TO_SELF, 10f,
+//                    Animation.RELATIVE_TO_SELF, 0f,
+//                    Animation.RELATIVE_TO_SELF, 0f
+//            );
+//
+//            animation.setDuration(500); // Set the duration of the animation in milliseconds
+//
+//            // Set an AnimationListener to handle animation events
+//            animation.setAnimationListener(new Animation.AnimationListener() {
+//                @Override
+//                public void onAnimationStart(Animation animation) {
+//                    // Animation start event
+//                }
+//
+//                @Override
+//                public void onAnimationEnd(Animation animation) {
+//                    // Animation end event
+//                    // Hide the element after animation completes
+//                    OpenImageLayout.setVisibility(View.GONE);
+//                }
+//
+//                @Override
+//                public void onAnimationRepeat(Animation animation) {
+//                    // Animation repeat event
+//                }
+//            });
+//
+//            OpenImageLayout.startAnimation(animation);
+//
+//        }
+//    }
 
     private void setButton() {
         ImageView[] btns = new ImageView[]{backBtn, whatsappBtn, downloadBtn, shareBtn};
@@ -184,15 +157,15 @@ public class OpenImageActivity extends AppCompatActivity {
                     if (btn == backBtn) {
                         finish();
                     } else if (btn == whatsappBtn) {
-                        sendWhatsapp(Uri.parse(imageList.get(viewPagerPos)));
+                        sendWhatsapp(Uri.parse(IMAGE_URI));
                     } else if (btn == downloadBtn) {
                         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
-                            saveImageBelowR(Uri.parse(imageList.get(viewPagerPos)));
+                            saveImageBelowR(Uri.parse(IMAGE_URI));
                         } else {
-                            saveImage(Uri.parse(imageList.get(viewPagerPos)));
+                            saveImage(Uri.parse(IMAGE_URI));
                         }
                     } else if (btn == shareBtn) {
-                        shareFile(Uri.parse(imageList.get(viewPagerPos)));
+                        shareFile(Uri.parse(IMAGE_URI));
                     } else {
 
                     }
@@ -201,8 +174,10 @@ public class OpenImageActivity extends AppCompatActivity {
         }
     }
 
-    public void downloadButtonState(int pos) {
-        String savedFileName = pathMap.getMap().get(new File(Uri.parse(imageList.get(pos)).getPath()).getName());
+    public void downloadButtonState(String IMAGE_URI) {
+        String savedFileName = pathMap.getMap().get(new File(Uri.parse(IMAGE_URI).getPath()).getName());
+        Log.d(TAG, "downloadButtonState: "+savedFileName);
+//        String savedFileName = pathMap.getMap().get(new File(Uri.parse(imageList.get(pos)).getPath()).getName());
         if (savedFiles().contains(savedFileName)) {
             downloadBtn.setImageResource(R.drawable.ic_baseline_check_24);
             downloadBtn.setClickable(false);
@@ -224,7 +199,7 @@ public class OpenImageActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-        finish();
+        super.onBackPressed();
 //        openImg.startAnimation(AnimationUtils.loadAnimation(this, R.anim.zoom_out));
     }
 

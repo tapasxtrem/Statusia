@@ -67,9 +67,6 @@ public class OpenVideoActivity extends AppCompatActivity {
 
     PathMap pathMap;
 
-    ArrayList<String> videoList;
-    int videoPos;
-
     ImageButton prevBtn;
     ImageButton nextBtn;
 
@@ -95,11 +92,9 @@ public class OpenVideoActivity extends AppCompatActivity {
         btns = new ImageView[]{fullScreenBtn,vidBackBtn,vidDownloadBtn,vidShareBtn,vidWhatsappBtn};
 
         Intent intent = getIntent();
-        videoUri = Uri.parse(intent.getStringExtra("URI"));
+        videoUri = Uri.parse(intent.getStringExtra("VIDEO_URI"));
         String frag = intent.getStringExtra("Fragment");
-        videoList = intent.getStringArrayListExtra("LIST");
-        videoPos = intent.getIntExtra("POS",0);
-        nextPrevBtnView();
+//        nextPrevBtnView();
         if(frag.equals("Saved")){
             vidDownloadBtn.setVisibility(View.GONE);
         }
@@ -114,56 +109,56 @@ public class OpenVideoActivity extends AppCompatActivity {
         newUiOptions &= ~View.SYSTEM_UI_FLAG_FULLSCREEN;
         newUiOptions &= ~View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
-        prevBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(videoPos>0){
-                    videoPos--;
-                    videoUri = Uri.parse(videoList.get(videoPos));
-                    setDownloadButton();
-                    exoPlayer.stop();
-                    exoPlayer.release();
-                    initializePlayer();
-                    nextPrevBtnView();
-                }
-            }
-        });
+//        prevBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(videoPos>0){
+//                    videoPos--;
+//                    videoUri = Uri.parse(videoList.get(videoPos));
+//                    setDownloadButton();
+//                    exoPlayer.stop();
+//                    exoPlayer.release();
+//                    initializePlayer();
+//                    nextPrevBtnView();
+//                }
+//            }
+//        });
 
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(videoPos<videoList.size()-1) {
-                    videoPos++;
-                    videoUri = Uri.parse(videoList.get(videoPos));
-                    setDownloadButton();
-                    exoPlayer.stop();
-                    exoPlayer.release();
-                    initializePlayer();
-                    nextPrevBtnView();
-                }
-            }
-        });
+//        nextBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(videoPos<videoList.size()-1) {
+//                    videoPos++;
+//                    videoUri = Uri.parse(videoList.get(videoPos));
+//                    setDownloadButton();
+//                    exoPlayer.stop();
+//                    exoPlayer.release();
+//                    initializePlayer();
+//                    nextPrevBtnView();
+//                }
+//            }
+//        });
     }
 
-    public void nextPrevBtnView(){
-        if(videoPos==0){
-            prevBtn.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.disable_white_btn)
-                    , android.graphics.PorterDuff.Mode.MULTIPLY);
-        }
-        else{
-            prevBtn.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.white)
-                    , android.graphics.PorterDuff.Mode.MULTIPLY);
-        }
-
-        if(videoPos==videoList.size()-1){
-            nextBtn.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.disable_white_btn)
-                    , android.graphics.PorterDuff.Mode.MULTIPLY);
-        }
-        else{
-            nextBtn.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.white)
-                    , android.graphics.PorterDuff.Mode.MULTIPLY);
-        }
-    }
+//    public void nextPrevBtnView(){
+//        if(videoPos==0){
+//            prevBtn.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.disable_white_btn)
+//                    , android.graphics.PorterDuff.Mode.MULTIPLY);
+//        }
+//        else{
+//            prevBtn.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.white)
+//                    , android.graphics.PorterDuff.Mode.MULTIPLY);
+//        }
+//
+//        if(videoPos==videoList.size()-1){
+//            nextBtn.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.disable_white_btn)
+//                    , android.graphics.PorterDuff.Mode.MULTIPLY);
+//        }
+//        else{
+//            nextBtn.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.white)
+//                    , android.graphics.PorterDuff.Mode.MULTIPLY);
+//        }
+//    }
 
     @Override
     public void onStart() {
@@ -202,7 +197,7 @@ public class OpenVideoActivity extends AppCompatActivity {
         if(fullscreen) setPortraitMode();
         else{
             releasePlayer();
-            finish();
+            super.onBackPressed();
         }
     }
 

@@ -9,6 +9,16 @@
     android:layoutDirection="ltr"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/vidBackBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:elevation="30dp"
+        android:padding="15dp"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24" />
+
     <ProgressBar
         android:id="@+id/videoProgress"
         android:layout_width="wrap_content"
@@ -16,72 +26,29 @@
         android:layout_centerInParent="true"
         android:progressTint="@color/white" />
 
-    <RelativeLayout
-        android:id="@+id/bar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#97000000"
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:orientation="horizontal"
-        android:layout_alignParentTop="true"
-        android:visibility="gone">
+        android:layout_centerInParent="true">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:id="@id/exo_play"
+            style="@style/ExoMediaButton.Play"
+            tools:ignore="ContentDescription"
+            android:src="@drawable/baseline_play_circle_outline_24"/>
 
-            <ImageView
-                android:id="@+id/vidBackBtn"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:padding="15dp"
-                android:src="@drawable/ic_baseline_arrow_back_ios_24"
-                android:layout_marginStart="15dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Video"
-                android:textSize="18sp"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:textAlignment="center"
-                android:textColor="@color/white"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_alignParentEnd="true">
+            android:id="@id/exo_pause"
+            style="@style/ExoMediaButton.Pause"
+            tools:ignore="ContentDescription"
+            android:src="@drawable/baseline_pause_circle_outline_24"/>
 
-            <ImageView
-                android:id="@+id/vidWhatsappBtn"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:src="@drawable/whatsapp_icon"
-                android:layout_marginStart="15dp"/>
-
-            <ImageView
-                android:id="@+id/vidDownloadBtn"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:padding="14dp"
-                android:src="@drawable/ic_baseline_download_24"
-                android:layout_marginStart="15dp"/>
-
-            <ImageView
-                android:id="@+id/vidShareBtn"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:padding="15dp"
-                android:src="@drawable/ic_baseline_share_24"
-                android:layout_marginStart="15dp"/>
-
-        </LinearLayout>
-
-    </RelativeLayout>
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/OpenImageLayout"
@@ -101,14 +68,14 @@
             android:layout_marginVertical="10dp">
 
             <ImageView
-                android:id="@+id/whatsappBtn2"
+                android:id="@+id/vidWhatsappBtn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:padding="5dp"
                 android:src="@drawable/whatsapp_icon" />
 
             <ImageView
-                android:id="@+id/downloadBtn2"
+                android:id="@+id/vidDownloadBtn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
@@ -116,7 +83,7 @@
                 android:src="@drawable/ic_baseline_download_24" />
 
             <ImageView
-                android:id="@+id/shareBtn2"
+                android:id="@+id/vidShareBtn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"

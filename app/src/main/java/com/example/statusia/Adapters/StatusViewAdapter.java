@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.statusia.Activitys.OpenImageActivity;
+import com.example.statusia.Activitys.OpenVideoActivity;
 import com.example.statusia.R;
 import com.google.android.material.button.MaterialButton;
 
@@ -80,11 +81,25 @@ public class StatusViewAdapter extends RecyclerView.Adapter<StatusViewAdapter.Vi
             @Override
             public void onClick(View view) {
                 if(!isSelectModeEnabled) {
-                    Intent intent = new Intent(iContext, OpenImageActivity.class);
-                    intent.putExtra("Fragment", "Images");
-                    intent.putExtra("POS", holder.getBindingAdapterPosition());
-                    intent.putStringArrayListExtra("LIST", iArrayList);
-                    iContext.startActivity(intent);
+                    if (iArrayList.get(pos).endsWith("jpg") || iArrayList.get(pos).endsWith("jpeg") || iArrayList.get(pos).endsWith("png") || iArrayList.get(pos).endsWith("gif") || iArrayList.get(pos).endsWith("bmp")) {
+
+                        Intent intent = new Intent(iContext, OpenImageActivity.class);
+                        intent.putExtra("Fragment", "Images");
+                        intent.putExtra("IMAGE_URI", iArrayList.get(holder.getBindingAdapterPosition()));
+
+                        ActivityOptions options =
+                                ActivityOptions.makeSceneTransitionAnimation(activity, holder.img, "image_or_video");
+
+                        iContext.startActivity(intent, options.toBundle());
+                    }else{
+                        Intent intent = new Intent(iContext, OpenVideoActivity.class);
+                        intent.putExtra("VIDEO_URI", iArrayList.get(holder.getBindingAdapterPosition()));
+                        intent.putExtra("Fragment", "Videos");
+                        ActivityOptions options =
+                                ActivityOptions.makeSceneTransitionAnimation(activity, holder.img, "image_or_video");
+
+                        iContext.startActivity(intent, options.toBundle());
+                    }
                 }else{
                     if(selectedList.contains(iArrayList.get(holder.getBindingAdapterPosition()))){
                         selectedList.remove(iArrayList.get(holder.getBindingAdapterPosition()));
