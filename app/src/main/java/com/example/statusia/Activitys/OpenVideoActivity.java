@@ -1,7 +1,7 @@
 package com.example.statusia.Activitys;
 
 import static android.content.ContentValues.TAG;
-import static com.example.statusia.Activitys.MainActivity.videoDir;
+import static com.example.statusia.Activitys.MainActivity.statusDir;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -279,7 +279,7 @@ public class OpenVideoActivity extends AppCompatActivity {
         String fileName = "VID_" + currentDateTime + ".mp4";
 
         try {
-            File destFile = new File(videoDir.getPath(),fileName);
+            File destFile = new File(statusDir.getPath(),fileName);
             File sourceFile = new File(uri.getPath());
 
             FileUtils.copyFile(sourceFile,destFile);
@@ -293,7 +293,7 @@ public class OpenVideoActivity extends AppCompatActivity {
             vidDownloadBtn.setImageResource(R.drawable.ic_baseline_check_24);
 
             Snackbar.make(findViewById(android.R.id.content),
-                    "Downloaded successfully at: Download/.Statusia/Videos",
+                    "Downloaded successfully at: Download/Statusia",
                     Snackbar.LENGTH_SHORT).show();
         }
         catch (Exception e){
@@ -311,7 +311,7 @@ public class OpenVideoActivity extends AppCompatActivity {
         String fileName = "VID_" + currentDateTime + ".mp4";
 
         try {
-            File destFile = new File(videoDir.getPath(),fileName);
+            File destFile = new File(statusDir.getPath(),fileName);
             InputStream in = getContentResolver().openInputStream(uri);
             org.apache.commons.io.FileUtils.copyInputStreamToFile(in,destFile);
             if(destFile.setLastModified(System.currentTimeMillis())) Log.d(TAG, "saveVideo: Successfully");;
@@ -324,7 +324,7 @@ public class OpenVideoActivity extends AppCompatActivity {
 
             vidDownloadBtn.setImageResource(R.drawable.ic_baseline_check_24);
             Snackbar.make(findViewById(android.R.id.content),
-                    "Downloaded successfully at: Download/.Statusia/Videos",
+                    "Downloaded successfully at: Download/Statusia",
                     Snackbar.LENGTH_SHORT).show();
         }
         catch (Exception e){
@@ -354,6 +354,9 @@ public class OpenVideoActivity extends AppCompatActivity {
 
     public void setDownloadButton(){
         String savedFileName = pathMap.getMap().get(new File(videoUri.getPath()).getName());
+        Log.d(TAG, "setDownloadButton: savedFileName: "+savedFileName);
+        Log.d(TAG, "setDownloadButton: savedFiles(): "+savedFiles());
+
         if(savedFiles().contains(savedFileName)) {
             vidDownloadBtn.setImageResource(R.drawable.ic_baseline_check_24);
         }else{
@@ -429,7 +432,7 @@ public class OpenVideoActivity extends AppCompatActivity {
 
     public ArrayList<String> savedFiles(){
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+
-                "/.Statusia/Videos";
+                "/Statusia";
 
         File file = new File(path);
         File []savedFiles = file.listFiles();

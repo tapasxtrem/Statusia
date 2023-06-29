@@ -5,7 +5,7 @@ import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
 
 import static com.example.statusia.Activitys.MainActivity.WhatsAppPackage;
-import static com.example.statusia.Activitys.MainActivity.imageDir;
+import static com.example.statusia.Activitys.MainActivity.statusDir;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -509,7 +509,7 @@ public class Videos extends Fragment {
         String fileName = "IMG_" + currentDateTime + (++conname) + ".jpg";
 
         try {
-            File destFile = new File(imageDir.getPath(),fileName);
+            File destFile = new File(statusDir.getPath(),fileName);
             File sourceFile = new File(uri.getPath());
 
             FileUtils.copyFile(sourceFile,destFile);
@@ -536,7 +536,7 @@ public class Videos extends Fragment {
         String fileName = "IMG_" + currentDateTime + (++conname) + ".jpg";
 
         try {
-            File destFile = new File(imageDir.getPath(),fileName);
+            File destFile = new File(statusDir.getPath(),fileName);
             InputStream in = requireContext().getContentResolver().openInputStream(uri);
             org.apache.commons.io.FileUtils.copyInputStreamToFile(in,destFile);
             if(destFile.setLastModified(System.currentTimeMillis())) Log.d(TAG, "saveImage: Successfully");;

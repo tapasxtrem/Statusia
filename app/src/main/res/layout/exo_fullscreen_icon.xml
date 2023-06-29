@@ -24,11 +24,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:elevation="20dp"
         android:progressTint="@color/white" />
 
     <LinearLayout
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:orientation="horizontal"
         android:layout_centerInParent="true">
 
@@ -38,7 +39,9 @@
             android:id="@id/exo_play"
             style="@style/ExoMediaButton.Play"
             tools:ignore="ContentDescription"
-            android:src="@drawable/baseline_play_circle_outline_24"/>
+            android:src="@drawable/play_btn"
+            android:padding="5dp"
+            android:scaleType="centerInside"/>
 
         <ImageButton
             android:layout_width="match_parent"
@@ -46,7 +49,8 @@
             android:id="@id/exo_pause"
             style="@style/ExoMediaButton.Pause"
             tools:ignore="ContentDescription"
-            android:src="@drawable/baseline_pause_circle_outline_24"/>
+            android:src="@drawable/pause_btn"
+            android:scaleType="centerInside"/>
 
     </LinearLayout>
 

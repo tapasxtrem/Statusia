@@ -4,7 +4,7 @@ import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
 import static com.example.statusia.Activitys.MainActivity.WhatsAppPackage;
-import static com.example.statusia.Activitys.MainActivity.imageDir;
+import static com.example.statusia.Activitys.MainActivity.statusDir;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -60,7 +60,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
-public class Images extends Fragment {
+public class Statuses extends Fragment {
 
     private static final int REQUEST_CODE2 = 202;
     RecyclerView ImagesRecycleView;
@@ -79,11 +79,11 @@ public class Images extends Fragment {
     ArrayList<String> selectedList;
     boolean isSelectModeEnabled;
     PathMap pathMap;
-    ArrayList<String> ImageUriList;
+    ArrayList<String> StatusUriList;
     ProgressDialog progress;
     TextView imageFragHeading;
 
-    public Images() {
+    public Statuses() {
         // Required empty public constructor
     }
 
@@ -94,7 +94,7 @@ public class Images extends Fragment {
         View view = inflater.inflate(R.layout.fragment_statuses, container, false);
         pathMap = new PathMap(getContext());
         activity = getActivity();
-        ImageUriList = new ArrayList<>();
+        StatusUriList = new ArrayList<>();
         selectedList = new ArrayList<>();
         isSelectModeEnabled = false;
         spinner = view.findViewById(R.id.whatsappTypeSpinner);
@@ -155,7 +155,7 @@ public class Images extends Fragment {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-                if(selectedList.size()==ImageUriList.size()){
+                if(selectedList.size()== StatusUriList.size()){
                     isSelectModeEnabled = false;
                     selectedList = new ArrayList<>();
                     imageFragHeading.setText("Images");
@@ -164,10 +164,10 @@ public class Images extends Fragment {
                 }else {
                     isSelectModeEnabled = true;
                     selectedList = new ArrayList<>();
-                    selectedList.addAll(ImageUriList);
+                    selectedList.addAll(StatusUriList);
                     imageFragHeading.setText(selectedList.size() + " Selected");
                 }
-                loadRecycleView(ImageUriList);
+                loadRecycleView(StatusUriList);
             }
         });
 
@@ -201,7 +201,7 @@ public class Images extends Fragment {
                 sleep(100);
             }
 
-            loadRecycleView(ImageUriList);
+            loadRecycleView(StatusUriList);
         }
         else{
             Snackbar.make(requireActivity().findViewById(android.R.id.content),
@@ -212,7 +212,7 @@ public class Images extends Fragment {
             isSelectModeEnabled = false;
             checkAllBtn.setVisibility(View.GONE);
             multiSaveBtn.setVisibility(View.GONE);
-            loadRecycleView(ImageUriList);
+            loadRecycleView(StatusUriList);
         }
     }
 
@@ -286,7 +286,7 @@ public class Images extends Fragment {
     }
 
     public void loadImageStatusFilesBelowR(int sPos){
-        ImageUriList = new ArrayList<>();
+        StatusUriList = new ArrayList<>();
         if ((ContextCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
             startActivity(new Intent(getContext(),PermissionManager.class));
@@ -315,15 +315,15 @@ public class Images extends Fragment {
 
 //        ArrayList<String> imageUriList;
         if(imageFiles!=null) {
-            ImageUriList = getImageUris(imageFiles);
+            StatusUriList = getImageUris(imageFiles);
         }
         else if(imageFiles2!=null){
-            ImageUriList = getImageUris(imageFiles2);
+            StatusUriList = getImageUris(imageFiles2);
             Log.d(TAG, "loadImageStatusFilesBelowR: "+ Arrays.toString(imageFiles2));
         }
-        else ImageUriList = new ArrayList<>();
+        else StatusUriList = new ArrayList<>();
 
-        if(ImageUriList.size()<=0){
+        if(StatusUriList.size()<=0){
             noImageStatus.setVisibility(View.VISIBLE);
             openWhatsapp.setVisibility(View.GONE);
         }
@@ -332,7 +332,7 @@ public class Images extends Fragment {
             openWhatsapp.setVisibility(View.VISIBLE);
         }
 
-        loadRecycleView(ImageUriList);
+        loadRecycleView(StatusUriList);
     }
 
     public ArrayList<String> getImageUris(File []imageFiles){
@@ -348,7 +348,7 @@ public class Images extends Fragment {
     }
 
     public void loadImageStatusFilesR(int sPos){
-        ImageUriList = new ArrayList<>();
+        StatusUriList = new ArrayList<>();
         SharedPreferences preferences = requireContext().getSharedPreferences("FILE_URI",MODE_PRIVATE);
         String UriPath;
         if(sPos == 0) UriPath = preferences.getString("WHATSAPP_URI","NULL");
@@ -369,13 +369,13 @@ public class Images extends Fragment {
 
             for (DocumentFile doc : sFiles) {
                 String docString = doc.getUri().toString();
-//                if (docString.endsWith(".jpg") || docString.endsWith(".jpeg") || docString.endsWith(".png")) {
-                    ImageUriList.add(docString);
-//                }
+                if(!docString.endsWith("nomedia")) {
+                    StatusUriList.add(docString);
+                }
             }
         }
 
-        if (ImageUriList.size() <= 0) {
+        if (StatusUriList.size() <= 0) {
             noImageStatus.setVisibility(View.VISIBLE);
             openWhatsapp.setVisibility(View.GONE);
         } else {
@@ -383,7 +383,7 @@ public class Images extends Fragment {
             openWhatsapp.setVisibility(View.VISIBLE);
         }
 
-        loadRecycleView(ImageUriList);
+        loadRecycleView(StatusUriList);
     }
 
     @Override
@@ -515,7 +515,7 @@ public class Images extends Fragment {
         String fileName = "IMG_" + currentDateTime + (++conname) + ".jpg";
 
         try {
-            File destFile = new File(imageDir.getPath(),fileName);
+            File destFile = new File(statusDir.getPath(),fileName);
             File sourceFile = new File(uri.getPath());
 
             FileUtils.copyFile(sourceFile,destFile);
@@ -542,7 +542,7 @@ public class Images extends Fragment {
         String fileName = "IMG_" + currentDateTime + (++conname) + ".jpg";
 
         try {
-            File destFile = new File(imageDir.getPath(),fileName);
+            File destFile = new File(statusDir.getPath(),fileName);
             InputStream in = requireContext().getContentResolver().openInputStream(uri);
             org.apache.commons.io.FileUtils.copyInputStreamToFile(in,destFile);
             if(destFile.setLastModified(System.currentTimeMillis())) Log.d(TAG, "saveImage: Successfully");;

@@ -1,7 +1,6 @@
 package com.example.statusia.Fragments;
 
-import static com.example.statusia.Activitys.MainActivity.imageDir;
-import static com.example.statusia.Activitys.MainActivity.videoDir;
+import static com.example.statusia.Activitys.MainActivity.statusDir;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -177,19 +176,14 @@ public class Saved extends Fragment {
     }
 
     private void loadSavedStatusFiles() {
-        File imageFile = new File(imageDir.getPath());
-        File videoFile = new File(videoDir.getPath());
-        File []savedImageFiles = imageFile.listFiles();
-        File []savedVideoFiles = videoFile.listFiles();
+        File imageFile = new File(statusDir.getPath());
+        File []savedFiles = imageFile.listFiles();
 
         ArrayList<String> fileUris = new ArrayList<>();
 
         ArrayList<File> fileList = new ArrayList<>();
-        if(savedImageFiles!=null) {
-            fileList.addAll(Arrays.asList(savedImageFiles));
-        }
-        if(savedVideoFiles!=null){
-            fileList.addAll(Arrays.asList(savedVideoFiles));
+        if(savedFiles!=null) {
+            fileList.addAll(Arrays.asList(savedFiles));
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

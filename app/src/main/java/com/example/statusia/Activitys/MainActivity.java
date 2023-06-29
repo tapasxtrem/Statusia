@@ -18,7 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.statusia.Adapters.WhatsappSpinnerItemAdapter;
-import com.example.statusia.Fragments.Images;
+import com.example.statusia.Fragments.Statuses;
 import com.example.statusia.Fragments.Saved;
 import com.example.statusia.Fragments.Videos;
 import com.example.statusia.R;
@@ -50,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
     WhatsappSpinnerItemAdapter WSAdapter;
     public static String WhatsAppPackage = "com.whatsapp";
 
-    public static File imageDir;
-    public static File videoDir;
+    public static File statusDir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentContainer = findViewById(R.id.fragmentContainer);
 
-        ImageFragment = new Images();
+        ImageFragment = new Statuses();
         VideosFragment = new Videos();
         SavedFragment = new Saved();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, ImageFragment).commit();
@@ -102,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         Uri URI = Uri.parse(UriPath);
         Log.d(TAG, "initFileCopyObserver: "+URI);
         Context context = getApplicationContext(); // Replace with your activity or service context
-        String destinationFolderPath = imageDir.getPath();
+        String destinationFolderPath = statusDir.getPath();
 
         FileCopyObserver fileObserver = new FileCopyObserver(context, URI, destinationFolderPath);
         context.getContentResolver().registerContentObserver(URI, true, fileObserver);
@@ -113,16 +112,12 @@ public class MainActivity extends AppCompatActivity {
         boolean[] dirCreateRes = new boolean[2];
         if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
             // For android 10+
-            imageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                    ".Statusia/Images");
-            videoDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                    ".Statusia/Videos");
+            statusDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                    "Statusia");
         } else {
-            imageDir = Environment.getExternalStoragePublicDirectory(".Statusia/Images");
-            videoDir = Environment.getExternalStoragePublicDirectory(".Statusia/Videos");
+            statusDir = Environment.getExternalStoragePublicDirectory("Statusia");
         }
-        if (!imageDir.exists()) dirCreateRes[0] = imageDir.mkdirs();
-        if (!videoDir.exists()) dirCreateRes[1] = videoDir.mkdirs();
+        if (!statusDir.exists()) dirCreateRes[0] = statusDir.mkdirs();
 
         if (dirCreateRes[0] && dirCreateRes[1])
             Log.d("Directory : ", "Created Successfully");

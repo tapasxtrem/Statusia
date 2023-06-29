@@ -1,6 +1,6 @@
 package com.example.statusia.Adapters;
 
-import static com.example.statusia.Fragments.Images.activity;
+import static com.example.statusia.Fragments.Statuses.activity;
 
 import android.app.ActivityOptions;
 import android.content.Context;

@@ -1,7 +1,7 @@
 package com.example.statusia.Activitys;
 
 import static android.content.ContentValues.TAG;
-import static com.example.statusia.Activitys.MainActivity.imageDir;
+import static com.example.statusia.Activitys.MainActivity.statusDir;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -210,7 +210,7 @@ public class OpenImageActivity extends AppCompatActivity {
         String fileName = "IMG_" + currentDateTime + ".jpg";
 
         try {
-            File destFile = new File(imageDir.getPath(), fileName);
+            File destFile = new File(statusDir.getPath(), fileName);
             File sourceFile = new File(uri.getPath());
 
             FileUtils.copyFile(sourceFile, destFile);
@@ -243,7 +243,7 @@ public class OpenImageActivity extends AppCompatActivity {
         String fileName = "IMG_" + currentDateTime + ".jpg";
 
         try {
-            File destFile = new File(imageDir.getPath(), fileName);
+            File destFile = new File(statusDir.getPath(), fileName);
             InputStream in = getContentResolver().openInputStream(uri);
             org.apache.commons.io.FileUtils.copyInputStreamToFile(in, destFile);
             if (destFile.setLastModified(System.currentTimeMillis()))
@@ -286,7 +286,7 @@ public class OpenImageActivity extends AppCompatActivity {
 
     public ArrayList<String> savedFiles() {
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) +
-                "/.Statusia/Images";
+                "/Statusia";
 
         File file = new File(path);
         File[] savedFiles = file.listFiles();

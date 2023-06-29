@@ -17,4 +17,7 @@
     <color name="blue4">#FF8A2CE2</color>
     <color name="orange">#FFA500</color>
     <color name="disable_white_btn">#88FFFFFF</color>
+    <color name="transparent">#7C000000</color>
+    <color name="red">#FF0000</color>
+    <color name="blue5">#9AC5F4</color>
 </resources>
